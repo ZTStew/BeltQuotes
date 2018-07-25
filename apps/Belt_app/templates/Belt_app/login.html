@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login and Registration</title>
+		<style>
+			.container{
+				display:inline-block;
+				width: 40%;
+				height: 300px;
+				border: 1px solid black;
+				vertical-align: top;
+				padding-left: 20px;
+			}
+			input{
+				display: block;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id = "wrapper">
+			<div class = "container">
+				<h1>Register</h1>
+				<form action="/register" method = "post">
+					{% csrf_token %}
+					<input type="text" name="first_name" placeholder="First Name" value="{{ request.session.first_name }}">
+					<input type="text" name="last_name" placeholder="Last Name" value="{{ request.session.last_name }}">
+					<input type="email" name="email" placeholder="Email" value="{{ request.session.email }}">
+					<!-- <input type="date" name="date"> -->
+					<input type="password" name="password" placeholder="Password">
+					<input type="password" name="passwordre" placeholder="Reconfirm Password">
+					<p>Date of Birth: <input type="date" name="birthdate"></p>
+					<input type="submit" value="Register">
+				</form>
+			</div>
+
+			<div class = "container">
+				<h1>Login</h1>
+				<form action="/login" method = "post">
+					{% csrf_token %}
+					<input type="email" name="email" placeholder="Email">
+					<input type="password" name="password" placeholder="Password">
+					<input type="submit" value="Login">
+				</form>
+			</div>
+			{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+						<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+	</body>
+</html>

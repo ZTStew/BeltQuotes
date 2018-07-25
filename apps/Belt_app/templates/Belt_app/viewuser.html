@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Users</title>
+		<style>
+			#wrapper{
+				border: 1px solid black;
+				margin-right: 20px;
+				margin-left: 20px;
+				padding-right: 20px;
+				padding-left: 20px;
+			}
+			#uppersection{
+				text-align: right;
+
+			}
+			#maininfo{
+				border: 1px solid black;
+				padding-left: 20px;
+			}
+			.author{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="uppersection">
+				<h3>
+					<span>
+						<a href="/dashboard">Dashboard</a>
+					</span>
+					 | 
+					<span>
+						<a href="/logout">Logout</a>
+					</span>
+				</h3>
+			</div>
+			<div id="mainbody">
+				<div id=maininfo>
+					<h3>Posts by: {{ userinfo.first_name }}</h3>
+					<h3>Number of quotes given: {{ count }}</h3>
+				</div>
+				{% for q in quoteinfo %}
+					<div class="userquotes">
+						<h3>
+							<span class="author">{{ q.author }}: </span> {{ q.quote }}
+						</h3>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		
+	</body>
+</html>
