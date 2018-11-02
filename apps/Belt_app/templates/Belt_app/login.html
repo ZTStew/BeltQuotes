@@ -2,51 +2,174 @@
 <html>
 	<head>
 		<title>Login and Registration</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
 		<style>
+			#wrapper{
+				border: 1px solid black;
+				min-height: 77vh;
+				margin-top: 5px;
+				margin-right: 20px;
+				margin-bottom: 5px;
+				margin-left: 20px;
+				padding-top: 5px;
+				padding-left: 20px;
+				padding-bottom: 20px;
+				padding-right: 20px;
+			}
 			.container{
 				display:inline-block;
-				width: 40%;
-				height: 300px;
+				width: 48%;
+				height: 60vh;
 				border: 1px solid black;
 				vertical-align: top;
 				padding-left: 20px;
+				box-shadow: 5px 5px 5px grey;
+			}
+			.wrapperLR{
+				display: flex;
+				align-content: space-between;
+				align-items: center;
+			}
+			.errors{
+				color: red;
+				font-weight: bold;
+			}
+			#Title{
+				display: inline-block;
+			}
+			.vl{
+				border-left: 1px solid black;
+				height: 2vh;
+				display: inline-block;
+			}
+			img{
+				height: 2.5vh;
+				position: relative;
+				bottom: 3px;
 			}
 			input{
 				display: block;
+			}
+			table{
+				width: 100%;
 			}
 
 		</style>
 	</head>
 	<body>
 		<div id = "wrapper">
-			<div class = "container">
-				<h1>Register</h1>
-				<form action="/register" method = "post">
-					{% csrf_token %}
-					<input type="text" name="first_name" placeholder="First Name" value="{{ request.session.first_name }}">
-					<input type="text" name="last_name" placeholder="Last Name" value="{{ request.session.last_name }}">
-					<input type="email" name="email" placeholder="Email" value="{{ request.session.email }}">
-					<!-- <input type="date" name="date"> -->
-					<input type="password" name="password" placeholder="Password">
-					<input type="password" name="passwordre" placeholder="Reconfirm Password">
-					<p>Date of Birth: <input type="date" name="birthdate"></p>
-					<input type="submit" value="Register">
-				</form>
-			</div>
+			<h1 id = "Title">Famous Quotes</h1>
+			<div class = "vl"></div>
+			<img src="/static/img/pythonLogo.png" alt="Python Logo">
+			<img src="/static/img/djangoLogo.png" alt="Django Logo">
+			<div class = "wrapperLR">
+				<div class = "container">
+					<h1>Register</h1>
+					<hr/>
+					<form action="/register" method = "post">
+						{% csrf_token %}
 
-			<div class = "container">
-				<h1>Login</h1>
-				<form action="/login" method = "post">
-					{% csrf_token %}
-					<input type="email" name="email" placeholder="Email">
-					<input type="password" name="password" placeholder="Password">
-					<input type="submit" value="Login">
-				</form>
+						<table>
+							<tr>
+								<td><h4>First Name</h4></td>
+								<td>
+									<h4>
+										<input type="text" name="first_name" value="{{ request.session.first_name }}">
+									</h4>
+								</td>
+							</tr>
+							<tr>
+								<td><h4>Last Name</h4></td>
+								<td>
+									<h4>
+										<input type="text" name="last_name" value="{{ request.session.last_name }}">
+									</h4>
+								</td>
+							</tr>
+							<tr>
+								<td><h4>Email</h4></td>
+								<td>
+									<h4>
+										<input type="email" name="email" value="{{ request.session.email }}">
+									</h4>
+								</td>
+							</tr>
+							<tr>
+								<td><h4>Password</h4></td>
+								<td>
+									<h4>
+										<input type="password" name="password">
+									</h4>
+								</td>
+							</tr>
+							<tr>
+								<td><h4>Reconfirm Password</h4></td>
+								<td>
+									<h4>
+										<input type="password" name="passwordre">
+									</h4>
+								</td>
+							</tr>
+							<tr>
+								<td><h4>Birth Date</h4></td>
+								<td>
+									<h4>
+										<input type="date" name="birthdate">
+									</h4>
+								</td>
+							</tr>
+							<tr>
+								<td><h4><input type="submit" value="Register"></h4></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+
+				<div class = "container">
+					<h1>Login</h1>
+					<hr/>
+					<form action="/login" method = "post">
+						{% csrf_token %}
+						<table>
+							<tr>
+								<td>
+									<h4>
+										Email:
+									</h4>
+								</td>
+								<td>
+									<h4>
+										<input type="email" name="email">
+									</h4>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h4>
+										Password:
+									</h4>
+								</td>
+								<td>
+									<h4>
+										<input type="password" name="password">
+									</h4>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<h4>
+										<input type="submit" value="Login">
+									</h4>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
 			</div>
 			{% if messages %}
 				<ul class="messages">
 					{% for message in messages %}
-						<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+						<li class = "errors" {% if message.tags %} class="{{ message.tags }}"{% endif %} >{{ message }}</li>
 					{% endfor %}
 				</ul>
 			{% endif %}

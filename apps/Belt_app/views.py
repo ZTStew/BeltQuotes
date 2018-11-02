@@ -94,3 +94,14 @@ def viewuser(request, user_id):
 
 	return render(request, "Belt_app/viewuser.html", userpageinfo)
 
+def deleteQuote(request, quote_id):
+	if "user_id" not in request.session:
+		return(redirect("/"))
+	quote = Quote.objects.get(id=quote_id)
+	user = User.objects.get(id=request.session["user_id"])
+
+	if quote.quotemaker == user:
+		Quote.objects.get(id=quote_id).delete()
+
+	return redirect("/viewuser/"+request.POST["user_page"]);
+

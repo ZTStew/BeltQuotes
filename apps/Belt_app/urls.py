@@ -11,4 +11,5 @@ urlpatterns = [
     path('makefavorite/<int:quote_id>', views.makefavorite),
     path('removefavorite/<int:quote_id>', views.removefavorite),
     path('viewuser/<int:user_id>', views.viewuser),
+    path('delete/<int:quote_id>', views.deleteQuote),
 ]

@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Home</title>
+		<title>Dashboard</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
 		<style>
 			#wrapper{
 				border: 1px solid black;
+				min-height: 90vh;
+				margin-top: 5px;
 				margin-right: 20px;
+				margin-bottom: 5px;
 				margin-left: 20px;
-				padding-right: 20px;
+				padding-top: 5px;
 				padding-left: 20px;
+				padding-bottom: 20px;
+				padding-right: 20px;
+
 			}
 			#upper{
 				display:flex;
@@ -63,7 +71,7 @@
 							{% csrf_token %}
 							<div class="quote">
 								<h3>{{ q.author }}:</h3>
-								<p>{{ q.quote }}</p>
+								<h4>{{ q.quote }}</h4>
 								<p>Posted by: <a href="/viewuser/{{ q.quotemaker.id }}">{{ q.quotemaker.first_name }}</a></p>
 								<input type="submit" value="Add To Favorites">
 							</div>
@@ -79,7 +87,7 @@
 							{% csrf_token %}
 							<div class="quote">
 								<h3>{{ f.author }}:</h3>
-								<p>{{ f.quote }}</p>
+								<h4>{{ f.quote }}</h4>
 								<p>Posted by: <a href="/viewuser/{{ f.quotemaker.id }}">{{ f.quotemaker.first_name }}</a></p>
 								<input type="submit" value="Remove From Favorites">
 							</div>
@@ -90,14 +98,35 @@
 						<h3>Contibute A Quote:</h3>
 						<form action="/postqoute" method = "post">
 							{% csrf_token %}
-							<h3>Author Of Quote: 
-								<input type="text" name="author" placeholder="Name Here">
-							</h3>
-							<h3>Quote:
-								<input type="text" name="quote" placeholder="Quote Here">
-							</h3>
-							<input type="hidden" name = "quotemaker" value="{{request.session.user_id}}">
-							<input type="submit" value="Submit Quote">
+							<table>
+								<tr>
+									<td>
+										<h3>Author Of Quote: </h3>
+									</td>
+									<td>
+										<h3>
+											<input type="text" name="author">
+										</h3>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h3>Quote:</h3>
+									</td>
+									<td>
+										<h3>
+											<input type="text" name="quote">
+										</h3>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="hidden" name = "quotemaker" value="{{request.session.user_id}}">
+										<input type="submit" value="Submit Quote">
+									</td>
+								</tr>
+							</table>
+							
 						</form>
 					</div>
 					{% if messages %}

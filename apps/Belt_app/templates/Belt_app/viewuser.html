@@ -2,13 +2,19 @@
 <html>
 	<head>
 		<title>Users</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
 		<style>
 			#wrapper{
 				border: 1px solid black;
+				min-height: 90vh;
+				margin-top: 5px;
 				margin-right: 20px;
+				margin-bottom: 5px;
 				margin-left: 20px;
-				padding-right: 20px;
+				padding-top: 5px;
 				padding-left: 20px;
+				padding-bottom: 20px;
+				padding-right: 20px;
 			}
 			#uppersection{
 				text-align: right;
@@ -17,9 +23,23 @@
 			#maininfo{
 				border: 1px solid black;
 				padding-left: 20px;
+				height: 20vh;
+				margin-bottom: 10px;
+				padding-top: 5px;
 			}
 			.author{
 				color: red;
+			}
+			.allUserQuotes{
+				max-height: 65vh;
+				overflow: auto;
+			}
+			.userQuotes{
+				display: flex;
+				justify-content: space-between;
+			}
+			.deleteButton{
+				margin-left: 5px;
 			}
 		</style>
 	</head>
@@ -41,13 +61,22 @@
 					<h3>Posts by: {{ userinfo.first_name }}</h3>
 					<h3>Number of quotes given: {{ count }}</h3>
 				</div>
-				{% for q in quoteinfo %}
-					<div class="userquotes">
-						<h3>
-							<span class="author">{{ q.author }}: </span> {{ q.quote }}
-						</h3>
-					</div>
-				{% endfor %}
+				<div class = "allUserQuotes">
+					{% for q in quoteinfo %}
+						<div class="userQuotes">
+							<h3>
+								<span class="author">{{ q.author }}: </span> {{ q.quote }}
+							</h3>
+							{% if request.session.user_id == q.quotemaker_id %}
+								<form action="/delete/{{q.id}}" method = "post" class = "deleteButton">
+									{% csrf_token %}
+									<input type="hidden" name="user_page" value = "{{userinfo.id}}">
+									<input type="submit" value="Delete Quote">
+								</form>
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
 			</div>
 		</div>
 		
