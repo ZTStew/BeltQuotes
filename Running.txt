@@ -1,0 +1,9 @@
+1) in the console, navigate to folder containing 'projectName/manage.py'
+
+2) in the console enter [python manage.py makemigrations]
+
+3) then enter [python manage.py migrate]
+
+4) run [python manage.py runserver]
+
+5) open browser and go to localhost:8000
